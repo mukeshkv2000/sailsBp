@@ -4,8 +4,7 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-// const logger = require("../../services/logger");
-// const logger = require("../../services/logPgdb");
+
 const log = require("../../services/log").log;
 module.exports = {
   add: async function(req, res) {
@@ -40,7 +39,7 @@ module.exports = {
         return res.json(users);
       }
     } catch (err) {
-      log("warn", err);
+      log("error", err);
       // logger.log("info", "message::", err, {});
       return res.json(err);
     }

@@ -1,4 +1,4 @@
-var loggerConfigs = require("./loggerConfig");
+const loggerConfigs = require("./loggerConfig");
 module.exports = {
   log: (type, error) => {
     loggerConfigs.logger.log({
