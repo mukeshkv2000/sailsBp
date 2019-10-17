@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@pauleliet/winston-pg-native": "^4.4.0",
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
@@ -14,7 +15,7 @@
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^2.0.0",
     "sails-postgresql": "^1.0.2",
-    "winston": "^3.2.1",
+    "winston": "*",
     "winston-mongodb": "^5.0.0",
     "winston-postgres": "0.0.4"
   },

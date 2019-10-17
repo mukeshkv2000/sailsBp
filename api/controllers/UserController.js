@@ -4,7 +4,9 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-const logger = require("../../services/logger");
+// const logger = require("../../services/logger");
+// const logger = require("../../services/logPgdb");
+const log = require("../../services/log").log;
 module.exports = {
   add: async function(req, res) {
     try {
@@ -14,13 +16,14 @@ module.exports = {
       let users = await User.create(user).fetch();
       if (!users) {
         sails.log.error("alpha to show ", users);
-        logger.info("beta save error", err);
+        // logger.info("beta save error", err);
+        log("error", err);
         return res.json({ status: 405, error: err });
       } else {
         return res.json(users);
       }
     } catch (err) {
-      logger.warn("gamma error", err);
+      log("info", err);
       return res.json(err);
     }
   },
@@ -28,14 +31,17 @@ module.exports = {
     try {
       // let users = await User.find();
       let users = await User.findOne({
-        name: "ficaso"
+        name: "srim"
       });
       if (!users) {
-        throw err;
+        // log("info", err);
+        throw "User not found";
       } else {
         return res.json(users);
       }
     } catch (err) {
+      log("warn", err);
+      // logger.log("info", "message::", err, {});
       return res.json(err);
     }
   }

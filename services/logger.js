@@ -1,5 +1,5 @@
 "use strict";
-"use strict";
+
 const { createLogger, format, transports } = require("winston");
 const fs = require("fs");
 const path = require("path");
@@ -42,22 +42,37 @@ const logger = createLogger({
             `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
         )
       )
+    }),
+    new winston.transports.Postgres({
+      db: "postgres://postgres:ztech@44@localhost:5432",
+      tableName: "logs",
+      level: "debug"
     })
   ]
 });
 
-var Postgres = require("winston-postgres").Postgres;
+// var Postgres = require("winston-postgres").Postgres;
 
-winston.add(winston.transports.Postgres, {
-  ssl: false, // are you sure you want to do this?
-  timestamp: true,
-  connectionString: "postgres://postgres:ztech@44@localhost:5432",
-  tableName: "winston-logs",
-  ignoreMessage: function(level, message, metadata) {
-    if (message === "something to ignore") {
-      return true;
-    }
-    return false;
-  }
-});
+// winston.add(winston.transports.Postgres, {
+//   ssl: false, // are you sure you want to do this?
+//   timestamp: true,
+//   connectionString: "postgres://postgres:ztech@44@localhost:5432",
+//   tableName: "winston-logs",
+//   ignoreMessage: function(level, message, metadata) {
+//     if (message === "something to ignore") {
+//       return true;
+//     }
+//     return false;
+//   }
+// });
+
+// var customLogger = new winston.Logger({
+//   transports: [
+//     new winston.transports.Postgres({
+//       db: "postgres://postgres:ztech@44@localhost:5432",
+//       collection: "logs",
+//       level: "debug"
+//     })
+//   ]
+// });
 module.exports = logger;
