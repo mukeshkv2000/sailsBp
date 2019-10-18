@@ -49,7 +49,7 @@ if (saveLogInDb) {
         idleTimeoutMillis: 0,
         max: 10
       },
-      tableName: "winston_logs"
+      tableName: "logalpha"
     })
   );
 }

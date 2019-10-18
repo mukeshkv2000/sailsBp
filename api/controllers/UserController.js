@@ -28,18 +28,20 @@ module.exports = {
   },
   show: async function(req, res) {
     try {
-      // let users = await User.find();
-      let users = await User.findOne({
-        name: "srim"
-      });
-      if (!users) {
-        // log("info", err);
-        throw "User not found";
+      sails.log("hit");
+      let logs = await User.find();
+      // let logs = await User.findOne({
+      //   name: "srim"
+      // });
+      sails.log(logs);
+      if (!logs) {
+        log("info", err);
+        throw "Logs not found";
       } else {
-        return res.json(users);
+        return res.json(logs);
       }
     } catch (err) {
-      log("error", err);
+      log("warn", err);
       // logger.log("info", "message::", err, {});
       return res.json(err);
     }

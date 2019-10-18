@@ -31,5 +31,5 @@ module.exports.models = {
    *                                                                          *
    ***************************************************************************/
   connection: "postgres",
-  migrate: "alter"
+  migrate: "safe"
 };

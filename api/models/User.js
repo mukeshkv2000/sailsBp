@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  tableName: "user",
+  tableName: "logalpha",
   attributes: {
     name: {
       type: "string",
@@ -17,6 +17,21 @@ module.exports = {
       type: "number",
       autoIncrement: true,
       unique: true
+    },
+    timestamp: {
+      type: "string",
+      required: true
+    },
+    level: {
+      type: "string",
+      required: true
+    },
+    message: {
+      type: "string"
+    },
+
+    meta: {
+      type: "json"
     }
   }
 };
