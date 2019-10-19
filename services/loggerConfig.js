@@ -5,8 +5,8 @@ const { createLogger, format, transports } = require("winston");
 const path = require("path");
 const logDir = "log";
 const errorLogEmail = process.env.ERROR_LOGS_EMAIL || "";
-const sendErrorLogOnEmail = process.env.ERROR_LOG_ON_EMAIL || true;
-const saveLogInDb = process.env.SAVE_ERROR_LOG_IN_DB || true;
+const sendErrorLogOnEmail = process.env.ERROR_LOG_ON_EMAIL || false;
+const saveLogInDb = process.env.SAVE_ERROR_LOG_IN_DB || false;
 const saveLogInFile = process.env.SAVE_ERROR_LOG_IN_FILE || false;
 const isDebug = true;
 

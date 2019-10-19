@@ -8,23 +8,16 @@
 module.exports = {
   tableName: "logalpha",
   attributes: {
-    name: {
-      type: "string",
-      required: true
-    },
-
     id: {
       type: "number",
       autoIncrement: true,
       unique: true
     },
     timestamp: {
-      type: "string",
-      required: true
+      type: "string"
     },
     level: {
-      type: "string",
-      required: true
+      type: "string"
     },
     message: {
       type: "string"

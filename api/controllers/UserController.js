@@ -31,16 +31,40 @@ module.exports = {
       sails.log("hit");
       let logs = await User.find();
       // let logs = await User.findOne({
-      //   name: "srim"
+      //   level: "warn"
       // });
-      sails.log(logs);
+
       if (!logs) {
         log("info", err);
         throw "Logs not found";
       } else {
-        return res.json(logs);
+        // return res.json(logs);
+        return res.view("pages/loggerList", {
+          logs: logs
+        });
       }
     } catch (err) {
+      log("warn", err);
+      // logger.log("info", "message::", err, {});
+      return res.json(err);
+    }
+  },
+  switchDb: async function(req, res) {
+    try {
+      sails.log(process.env.SAVE_ERROR_LOG_IN_DB);
+      if (
+        process.env.SAVE_ERROR_LOG_IN_DB == undefined ||
+        process.env.SAVE_ERROR_LOG_IN_DB == false
+      ) {
+        process.env.SAVE_ERROR_LOG_IN_DB = true;
+      } else {
+        process.env.SAVE_ERROR_LOG_IN_DB = false;
+      }
+
+      const offOn = process.env.SAVE_ERROR_LOG_IN_DB;
+      sails.log(process.env.SAVE_ERROR_LOG_IN_DB);
+      res.send(offOn);
+    } catch (e) {
       log("warn", err);
       // logger.log("info", "message::", err, {});
       return res.json(err);
