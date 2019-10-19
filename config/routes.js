@@ -31,6 +31,10 @@ module.exports.routes = {
   "GET user/switchDb": {
     controller: "UserController",
     action: "switchDb"
+  },
+  "GET user/showenv": {
+    controller: "UserController",
+    action: "showenv"
   }
 
   /***************************************************************************

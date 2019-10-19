@@ -6,6 +6,7 @@
  */
 
 const log = require("../../services/log").log;
+
 module.exports = {
   add: async function(req, res) {
     try {
@@ -49,12 +50,26 @@ module.exports = {
       return res.json(err);
     }
   },
+  showenv: async function(req, res) {
+    try {
+      let envvar = await EnvVar.find();
+      sails.log("env var", envvar[0].SAVE_ERROR_LOG_IN_DB);
+      process.env.SAVE_ERROR_LOG_IN_DB = envvar[0].SAVE_ERROR_LOG_IN_DB;
+      sails.log("process env var", process.env.SAVE_ERROR_LOG_IN_DB);
+      res.send(process.env.SAVE_ERROR_LOG_IN_DB);
+    } catch (e) {
+      log("warn", e);
+      // logger.log("info", "message::", err, {});
+      return res.json(e);
+    }
+  },
   switchDb: async function(req, res) {
     try {
-      // let envvar = await EnvVar.find();
+      let envvar = await EnvVar.find();
       // sails.log("env var", envvar[0].SAVE_ERROR_LOG_IN_DB);
+      const _switch = envvar[0].SAVE_ERROR_LOG_IN_DB;
       const updateDb = await EnvVar.update({ id: 1 })
-        .set({ SAVE_ERROR_LOG_IN_DB: false })
+        .set({ SAVE_ERROR_LOG_IN_DB: !_switch })
         .fetch();
       res.send(updateDb);
     } catch (e) {
