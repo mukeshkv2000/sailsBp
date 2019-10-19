@@ -6,7 +6,7 @@ const path = require("path");
 const logDir = "log";
 const errorLogEmail = process.env.ERROR_LOGS_EMAIL || "";
 const sendErrorLogOnEmail = process.env.ERROR_LOG_ON_EMAIL || false;
-const saveLogInDb = process.env.SAVE_ERROR_LOG_IN_DB || true;
+const saveLogInDb = process.env.SAVE_ERROR_LOG_IN_DB || false;
 const saveLogInFile = process.env.SAVE_ERROR_LOG_IN_FILE || false;
 const isDebug = true;
 
@@ -40,7 +40,7 @@ if (isDebug) {
   );
 }
 
-if (saveLogInDb) {
+if (process.env.SAVE_ERROR_LOG_IN_DB) {
   logger.add(
     new Postgres({
       connectionString: PostgresStr,
@@ -67,7 +67,7 @@ if (saveLogInFile) {
     })
   );
 }
-
+sails.log("process.env", saveLogInDb);
 module.exports = {
   logger: logger,
   errorLogEmail: errorLogEmail,
