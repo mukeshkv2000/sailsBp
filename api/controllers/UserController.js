@@ -51,23 +51,16 @@ module.exports = {
   },
   switchDb: async function(req, res) {
     try {
-      sails.log(process.env.SAVE_ERROR_LOG_IN_DB);
-      if (
-        process.env.SAVE_ERROR_LOG_IN_DB == undefined ||
-        process.env.SAVE_ERROR_LOG_IN_DB == false
-      ) {
-        process.env.SAVE_ERROR_LOG_IN_DB = true;
-      } else {
-        process.env.SAVE_ERROR_LOG_IN_DB = false;
-      }
-
-      const offOn = process.env.SAVE_ERROR_LOG_IN_DB;
-      sails.log(process.env.SAVE_ERROR_LOG_IN_DB);
-      res.send(offOn);
+      // let envvar = await EnvVar.find();
+      // sails.log("env var", envvar[0].SAVE_ERROR_LOG_IN_DB);
+      const updateDb = await EnvVar.update({ id: 1 })
+        .set({ SAVE_ERROR_LOG_IN_DB: false })
+        .fetch();
+      res.send(updateDb);
     } catch (e) {
-      log("warn", err);
+      log("warn", e);
       // logger.log("info", "message::", err, {});
-      return res.json(err);
+      return res.json(e);
     }
   }
 };
