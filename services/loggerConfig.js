@@ -53,9 +53,9 @@ if (process.env.SAVE_ERROR_LOG_IN_DB) {
     })
   );
 }
-
-if (saveLogInFile) {
-  logger.add(
+let savefile = function savefile() {
+  sails.log("process.env hit inside save", process.env.SAVE_ERROR_LOG_IN_FILE);
+  this.logger.add(
     new transports.File({
       filename,
       format: format.combine(
@@ -66,10 +66,11 @@ if (saveLogInFile) {
       )
     })
   );
-}
-sails.log("process.env", saveLogInDb);
+};
+
 module.exports = {
   logger: logger,
+  savefile: savefile,
   errorLogEmail: errorLogEmail,
   sendErrorLogOnEmail: sendErrorLogOnEmail
 };

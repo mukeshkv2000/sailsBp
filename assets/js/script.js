@@ -3,7 +3,18 @@ $(document).ready(function() {
     console.log("Ajax fired");
     $.ajax({
       type: "POST",
-      url: "http://localhost:3211/user/switchDb",
+      url: "http://localhost:1337/user/switchDb",
+      success: function(data) {
+        $(".text").text("done");
+      },
+      dataType: "jsonp"
+    });
+  });
+  $(".switchFile").click(function() {
+    console.log("Ajax fired");
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:1337/user/switchFile",
       success: function(data) {
         $(".text").text("done");
       },

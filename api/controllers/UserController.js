@@ -6,7 +6,7 @@
  */
 
 const log = require("../../services/log").log;
-
+const saveLogInFile = process.env.SAVE_ERROR_LOG_IN_FILE;
 module.exports = {
   add: async function(req, res) {
     try {
@@ -72,6 +72,24 @@ module.exports = {
         .set({ SAVE_ERROR_LOG_IN_DB: !_switch })
         .fetch();
       res.send(updateDb);
+    } catch (e) {
+      log("warn", e);
+      // logger.log("info", "message::", err, {});
+      return res.json(e);
+    }
+  },
+  switchFile: async function(req, res) {
+    try {
+      let envvar = await EnvVar.find();
+      sails.log("before:: ", process.env.SAVE_ERROR_LOG_IN_FILE);
+
+      const _switch = envvar[0].SAVE_ERROR_LOG_IN_FILE;
+      const updateFile = await EnvVar.update({ id: 1 })
+        .set({ SAVE_ERROR_LOG_IN_FILE: !_switch })
+        .fetch();
+      process.env.SAVE_ERROR_LOG_IN_FILE = !_switch;
+      res.send(updateFile);
+      sails.log("after:: ", process.env.SAVE_ERROR_LOG_IN_FILE);
     } catch (e) {
       log("warn", e);
       // logger.log("info", "message::", err, {});
