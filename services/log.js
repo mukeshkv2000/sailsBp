@@ -7,9 +7,6 @@ module.exports = {
       short: error
     });
 
-    if (process.env.SAVE_ERROR_LOG_IN_FILE == "true") {
-      loggerConfigs.savefile();
-    }
     if (loggerConfigs.sendErrorLogOnEmail == "true" && type == "error") {
       // TODO use email function to send error on email(loggerConfigs.errorLogEmail)
     }

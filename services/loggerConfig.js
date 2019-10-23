@@ -41,7 +41,7 @@ if (isDebug) {
   );
 }
 
-if (true) {
+if (saveLogInDb) {
   sails.log("adding in database");
   logger.add(
     new Postgres({
@@ -55,9 +55,9 @@ if (true) {
     })
   );
 }
-let savefile = function savefile() {
-  // sails.log("process.env hit inside save", process.env.SAVE_ERROR_LOG_IN_FILE);
-  this.logger.add(
+
+if (saveLogInFile) {
+  logger.add(
     new transports.File({
       filename,
       format: format.combine(
@@ -68,11 +68,9 @@ let savefile = function savefile() {
       )
     })
   );
-};
-
+}
 module.exports = {
   logger: logger,
-  savefile: savefile,
   errorLogEmail: errorLogEmail,
   sendErrorLogOnEmail: sendErrorLogOnEmail
 };

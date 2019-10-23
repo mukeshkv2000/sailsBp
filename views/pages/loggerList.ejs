@@ -12,6 +12,7 @@
             id="loglevel"
             onchange="this.form.submit()"
           >
+            <option>Select</option>
             <option>info</option>
             <option>error</option>
             <option>warn</option>
@@ -25,9 +26,9 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-12 m-5 table-responsive" style="height:500px">
-      <table class="table table-sm ">
-        <thead class="thead-dark">
+    <div class="col-12 m-5 ">
+      <table id="myTable" class="table table-sm ">
+        <thead class="">
           <tr>
             <th>#</th>
             <th>timestamp</th>
@@ -40,18 +41,15 @@
           <% for(var i=0; i < logs.length; i++) { %>
           <tr>
             <td><%= logs[i].id %></td>
-            <th class="text-success"><%= logs[i].timestamp %></th>
+            <td class="text-success"><%= logs[i].timestamp %></td>
             <td class="text-danger"><%= logs[i].level %></td>
             <td>
-              <%= JSON.stringify(logs[i].message)%>
-            </td>
+              <%=logs[i].message%>
             </td>
           </tr>
-          <% } %> 
-          <tr>  </tr>
+          <% } %>
         </tbody>
       </table>
-        
     </div>
   </div>
 </div>

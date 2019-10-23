@@ -15,52 +15,52 @@ module.exports = {
       };
       let users = await User.create(user).fetch();
       if (!users) {
-        return res.json({ status: 405, error: err });
+        return res.send({ status: 404, error: err });
       } else {
-        return res.json(users);
+        return res.send(users);
       }
     } catch (err) {
-      log("info", err);
+      log("error", err);
       return res.json(err);
     }
   },
   show: async function(req, res) {
     try {
-      let logs = await User.find();
+      let logs = await Users.find()
+        .sort("timestamp DESC")
+        .paginate({ page: 0, limit: 100 });
 
       if (!logs) {
         log("info", err);
-        throw "Logs not found";
+        throw new Error("Logs not found");
       } else {
         // return res.json(logs);
 
-        return res.view("pages/loggerList", {
-          logs: logs,
-          message: logs.details
-        });
-      }
-    } catch (err) {
-      log("warn", err);
-      // logger.log("info", "message::", err, {});
-      return res.json(err);
-    }
-  },
-  showFilter: async function(req, res) {
-    try {
-      let logs = await User.find().where({ level: req.body.loglevel });
-
-      if (!logs) {
-        log("info", err);
-        throw "Logs not found";
-      } else {
-        // return res.json(logs);
         return res.view("pages/loggerList", {
           logs: logs
         });
       }
     } catch (err) {
       log("warn", err);
-      // logger.log("info", "message::", err, {});
+      return res.send(err);
+    }
+  },
+  showFilter: async function(req, res) {
+    try {
+      let logs = await User.find()
+        .where({ level: req.body.loglevel })
+        .sort("timestamp DESC");
+
+      if (!logs) {
+        log("info", err);
+        throw new Error("Logs not found");
+      } else {
+        return res.view("pages/loggerList", {
+          logs: logs
+        });
+      }
+    } catch (err) {
+      log("error", err);
       return res.json(err);
     }
   },

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // switching save to file off on
   $(".switchdb").click(function() {
     console.log("Ajax fired");
     $.ajax({
@@ -10,6 +11,7 @@ $(document).ready(function() {
       dataType: "jsonp"
     });
   });
+  // switching save to file off on
   $(".switchFile").click(function() {
     console.log("Ajax fired");
     $.ajax({
@@ -19,6 +21,12 @@ $(document).ready(function() {
         $(".text").text("done");
       },
       dataType: "jsonp"
+    });
+  });
+  // pagination
+  $(document).ready(function() {
+    $("#myTable").DataTable({
+      order: [[2, "desc"]]
     });
   });
 });
