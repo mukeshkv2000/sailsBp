@@ -1,7 +1,7 @@
 <div class="container-fluid bg-dark text-light">
   <div class="row">
     <div class="col-4 px-5  offset-8">
-      <form action="/user/showFilter" method="post">
+      <form action="/logs/showFilter" method="post">
         <div class="form-group">
           <label for="loglevel">
             <h2 class="text-warning">Select Log Level</h2>
@@ -40,7 +40,7 @@
         <tbody>
           <% for(var i=0; i < logs.length; i++) { %>
           <tr>
-            <td><%= logs[i].id %></td>
+            <td><%= i+1%></td>
             <td class="text-success"><%= logs[i].timestamp %></td>
             <td class="text-danger"><%= logs[i].level %></td>
             <td>

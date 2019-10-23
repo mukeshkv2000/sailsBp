@@ -15,6 +15,7 @@ module.exports = {
       };
       let users = await User.create(user).fetch();
       if (!users) {
+        log("info", err);
         return res.status(404).send("notfound");
       } else {
         return res.status.send(users);
@@ -33,7 +34,7 @@ module.exports = {
       sails.log("process env var", process.env.SAVE_ERROR_LOG_IN_DB);
       res.send(process.env.SAVE_ERROR_LOG_IN_DB);
     } catch (e) {
-      log("warn", e);
+      log("warn", e, short);
       // logger.log("info", "message::", err, {});
       return res.json(e);
     }

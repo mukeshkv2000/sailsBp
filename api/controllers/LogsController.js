@@ -29,7 +29,7 @@ module.exports = {
   },
   showFilter: async function(req, res) {
     try {
-      let logs = await User.find()
+      let logs = await Logs.find()
         .where({ level: req.body.loglevel })
         .sort("timestamp DESC");
 
