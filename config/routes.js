@@ -24,8 +24,8 @@ module.exports.routes = {
     controller: "UserController",
     action: "add"
   },
-  "GET user/show": {
-    controller: "UserController",
+  "GET logs/show": {
+    controller: "LogsController",
     action: "show"
   },
   "GET user/switchDb": {
@@ -40,8 +40,8 @@ module.exports.routes = {
     controller: "UserController",
     action: "showenv"
   },
-  "POST user/showFilter": {
-    controller: "UserController",
+  "POST logs/showFilter": {
+    controller: "LogsController",
     action: "showFilter"
   }
 

@@ -1,23 +1,34 @@
 /**
- * User.js
+ * Logs.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
 module.exports = {
-  tableName: "Userlist",
+  tableName: "logbeta",
   attributes: {
     id: {
       type: "number",
       autoIncrement: true,
       unique: true
     },
-    name: {
+    timestamp: {
       type: "string",
-      required: true
+      required: true,
+      custom: value => Date.parse(value)
     },
-    lastname: {
+
+    level: {
+      type: "string"
+    },
+    message: {
+      type: "string"
+    },
+    meta: {
+      type: "json"
+    },
+    appendix: {
       type: "string"
     }
   }

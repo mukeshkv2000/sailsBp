@@ -6,9 +6,5 @@ module.exports = {
       message: error,
       short: error
     });
-
-    if (loggerConfigs.sendErrorLogOnEmail == "true" && type == "error") {
-      // TODO use email function to send error on email(loggerConfigs.errorLogEmail)
-    }
   }
 };

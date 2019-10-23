@@ -20,7 +20,6 @@ const logger = createLogger({
     format.timestamp({
       format: "YYYY-MM-DD HH:mm:ss"
     }),
-    format.simple(),
     format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
   ),
 
@@ -51,7 +50,7 @@ if (saveLogInDb) {
         idleTimeoutMillis: 0,
         max: 10
       },
-      tableName: "logalpha"
+      tableName: "logbeta"
     })
   );
 }
