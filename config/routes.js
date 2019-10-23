@@ -39,6 +39,10 @@ module.exports.routes = {
   "GET user/showenv": {
     controller: "UserController",
     action: "showenv"
+  },
+  "POST user/showFilter": {
+    controller: "UserController",
+    action: "showFilter"
   }
 
   /***************************************************************************

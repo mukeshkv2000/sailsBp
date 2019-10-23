@@ -20,6 +20,7 @@ const logger = createLogger({
     format.timestamp({
       format: "YYYY-MM-DD HH:mm:ss"
     }),
+    format.simple(),
     format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
   ),
 
@@ -40,7 +41,8 @@ if (isDebug) {
   );
 }
 
-if (process.env.SAVE_ERROR_LOG_IN_DB) {
+if (true) {
+  sails.log("adding in database");
   logger.add(
     new Postgres({
       connectionString: PostgresStr,
@@ -54,7 +56,7 @@ if (process.env.SAVE_ERROR_LOG_IN_DB) {
   );
 }
 let savefile = function savefile() {
-  sails.log("process.env hit inside save", process.env.SAVE_ERROR_LOG_IN_FILE);
+  // sails.log("process.env hit inside save", process.env.SAVE_ERROR_LOG_IN_FILE);
   this.logger.add(
     new transports.File({
       filename,

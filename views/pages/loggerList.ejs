@@ -1,40 +1,38 @@
 <div class="container-fluid bg-dark text-light">
   <div class="row">
-    <div class="col-4 my-5">
-      <h5>Send Logger messages to Email</h5>
-      <label class="switch">
-        <input type="checkbox" />
-        <span class="slider round"></span>
-      </label>
-    </div>
-    <div class="col-4 my-5">
-      <h5>Save Logger messages to File</h5>
-      <label class="switch">
-        <input type="checkbox" />
-        <span class="slider round"></span>
-      </label>
-    </div>
-    <div class="col-4 my-5">
-      <h5>Save Logger messages to DataBase</h5>
-
-      <label class="switchdb switch">
-        <input class="switch" type="checkbox" />
-        <span class="slider round"></span>
-      </label>
+    <div class="col-4 px-5  offset-8">
+      <form action="/user/showFilter" method="post">
+        <div class="form-group">
+          <label for="loglevel">
+            <h2 class="text-warning">Select Log Level</h2>
+          </label>
+          <select
+            class="form-control"
+            name="loglevel"
+            id="loglevel"
+            onchange="this.form.submit()"
+          >
+            <option>info</option>
+            <option>error</option>
+            <option>warn</option>
+            <option>debug</option>
+            <option>silly</option>
+          </select>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <table class="table table-sm table-head-dark">
-        <thead>
+    <div class="col-12 m-5 table-responsive" style="height:500px">
+      <table class="table table-sm ">
+        <thead class="thead-dark">
           <tr>
             <th>#</th>
             <th>timestamp</th>
             <th>level</th>
             <th>message</th>
-            <th>meta</th>
           </tr>
         </thead>
 
@@ -42,13 +40,18 @@
           <% for(var i=0; i < logs.length; i++) { %>
           <tr>
             <td><%= logs[i].id %></td>
-            <td><%= logs[i].timestamp %></td>
-            <td><%= logs[i].level %></td>
-            <td><%= logs[i].message %></td>
+            <th class="text-success"><%= logs[i].timestamp %></th>
+            <td class="text-danger"><%= logs[i].level %></td>
+            <td>
+              <%= JSON.stringify(logs[i].message)%>
+            </td>
+            </td>
           </tr>
-          <% } %>
+          <% } %> 
+          <tr>  </tr>
         </tbody>
       </table>
+        
     </div>
   </div>
 </div>

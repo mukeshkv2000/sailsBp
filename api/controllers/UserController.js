@@ -15,9 +15,6 @@ module.exports = {
       };
       let users = await User.create(user).fetch();
       if (!users) {
-        sails.log.error("alpha to show ", users);
-        // logger.info("beta save error", err);
-        log("error", err);
         return res.json({ status: 405, error: err });
       } else {
         return res.json(users);
@@ -29,11 +26,28 @@ module.exports = {
   },
   show: async function(req, res) {
     try {
-      sails.log("hit");
       let logs = await User.find();
-      // let logs = await User.findOne({
-      //   level: "warn"
-      // });
+
+      if (!logs) {
+        log("info", err);
+        throw "Logs not found";
+      } else {
+        // return res.json(logs);
+
+        return res.view("pages/loggerList", {
+          logs: logs,
+          message: logs.details
+        });
+      }
+    } catch (err) {
+      log("warn", err);
+      // logger.log("info", "message::", err, {});
+      return res.json(err);
+    }
+  },
+  showFilter: async function(req, res) {
+    try {
+      let logs = await User.find().where({ level: req.body.loglevel });
 
       if (!logs) {
         log("info", err);
@@ -82,7 +96,6 @@ module.exports = {
     try {
       let envvar = await EnvVar.find();
       sails.log("before:: ", process.env.SAVE_ERROR_LOG_IN_FILE);
-
       const _switch = envvar[0].SAVE_ERROR_LOG_IN_FILE;
       const updateFile = await EnvVar.update({ id: 1 })
         .set({ SAVE_ERROR_LOG_IN_FILE: !_switch })
