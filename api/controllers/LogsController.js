@@ -6,7 +6,7 @@
  */
 const log = require("../../services/log").log;
 module.exports = {
-  show: async function(req, res) {
+  show: async function (req, res) {
     try {
       let logs = await Logs.find()
         .sort("timestamp DESC")
@@ -17,9 +17,25 @@ module.exports = {
         throw new Error("Logs not found");
       } else {
         // return res.json(logs);
-
+        let dtails = [];
+        // console.log(logs)
+        for (let i = 0; i < logs.length; i++) {
+          // console.log("====>",logs[i].message)
+          let msg = JSON.parse(logs[i].message);
+          // console.log(msg)
+          msg = msg.cause;
+          // console.log(msg)
+          let add = {
+            name: msg.name,
+            detail: msg.details
+          }
+          dtails.push(add)
+        }
+        console.log(dtails)
         return res.view("pages/loggerList", {
-          logs: logs
+          logs: logs,
+          dtails:dtails
+
         });
       }
     } catch (err) {
@@ -27,7 +43,7 @@ module.exports = {
       return res.send(err);
     }
   },
-  showFilter: async function(req, res) {
+  showFilter: async function (req, res) {
     try {
       let logs = await Logs.find()
         .where({ level: req.body.loglevel })

@@ -50,6 +50,26 @@
           <% } %>
         </tbody>
       </table>
+      <table id="myTable1" class="table table-sm ">
+          <thead class="">
+            <tr>
+              <th>number</th>
+              <th>Name</th>
+              <th>Details</th>
+            </tr>
+      <tbody>
+        <% for(var i=0; i < dtails.length; i++) { %>
+        <tr>
+          <td><%= i+1%></td>
+          <td class="text-success"><%= dtails[i].name %></td>
+          <td class="text-danger"><%= dtails[i].detail %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
     </div>
   </div>
 </div>
+
+
