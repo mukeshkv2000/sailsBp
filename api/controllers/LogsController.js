@@ -5,52 +5,60 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 const log = require("../../services/log").log;
+var useragent = require('useragent');
+useragent(true);
 module.exports = {
   show: async function (req, res) {
+    var agent = useragent.parse(req.headers['user-agent']);
+    agent.toString();
+    let msg = req.baseUrl + req.originalUrl + " Method :" + req.method + " user-agent :" + agent;
     try {
       let logs = await Logs.find()
         .sort("timestamp DESC")
-        .paginate({ page: 0, limit: 100 });
+        // .paginate({ page: 0, limit: 100 });
 
       if (!logs) {
-        log("info", err);
+        log("info", err, msg);
         throw new Error("Logs not found");
       } else {
-        // return res.json(logs);
-        let dtails = [];
-        // console.log(logs)
+        let metaTag = [];
         for (let i = 0; i < logs.length; i++) {
-          // console.log("====>",logs[i].message)
-          let msg = JSON.parse(logs[i].message);
-          // console.log(msg)
-          msg = msg.cause;
-          // console.log(msg)
+          let metaValue = logs[i].meta;
+          detail = JSON.parse(logs[i].message);
+          // console.log("Details", detail)
           let add = {
-            name: msg.name,
-            detail: msg.details
+            level: metaValue.level,
+            short: metaValue.short,
+            details: detail
           }
-          dtails.push(add)
+          metaTag.push(add)
         }
-        console.log(dtails)
-        return res.view("pages/loggerList", {
+        // console.log(metaTag)
+        return res.render("pages/loggerList", {
           logs: logs,
-          dtails:dtails
+          metaTag: metaTag
 
         });
       }
     } catch (err) {
-      log("warn", err);
+      if(err.length > 0){
+        log("warn", err, msg);
+      }
+
       return res.send(err);
     }
   },
   showFilter: async function (req, res) {
+    var agent = useragent.parse(req.headers['user-agent']);
+    agent.toString();
+    let msg = req.baseUrl + req.originalUrl + " Method :" + req.method + " user-agent :" + agent;
     try {
       let logs = await Logs.find()
         .where({ level: req.body.loglevel })
         .sort("timestamp DESC");
 
       if (!logs) {
-        log("info", err);
+        log("info", err, msg);
         throw new Error("Logs not found");
       } else {
         return res.view("pages/loggerList", {
@@ -58,7 +66,7 @@ module.exports = {
         });
       }
     } catch (err) {
-      log("error", err);
+      log("error", err, msg);
       return res.json(err);
     }
   }

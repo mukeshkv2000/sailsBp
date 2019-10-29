@@ -24,6 +24,7 @@
     </div>
   </div>
 </div>
+
 <div class="container">
   <div class="row">
     <div class="col-12 m-5 ">
@@ -31,43 +32,23 @@
         <thead class="">
           <tr>
             <th>#</th>
-            <th>Timestamp</th>
             <th>Level</th>
-            <th>Message</th>
+            <th>Url</th>
+            <th>Details</th>
           </tr>
         </thead>
 
         <tbody>
-          <% for(var i=0; i < logs.length; i++) { %>
+          <% for(var i=0; i < metaTag.length; i++) { %>
           <tr>
             <td><%= i+1%></td>
-            <td class="text-success"><%= logs[i].timestamp %></td>
-            <td class="text-danger"><%= logs[i].level %></td>
-            <td>
-              <%=logs[i].message%>
-            </td>
+            <td class="text-success"><%= metaTag[i].level %></td>
+            <td class="text-success"><%= metaTag[i].short %></td>
+            <td class="text-danger"><%= logs[i].message %></td>
           </tr>
           <% } %>
         </tbody>
       </table>
-      <table id="myTable1" class="table table-sm ">
-          <thead class="">
-            <tr>
-              <th>number</th>
-              <th>Name</th>
-              <th>Details</th>
-            </tr>
-      <tbody>
-        <% for(var i=0; i < dtails.length; i++) { %>
-        <tr>
-          <td><%= i+1%></td>
-          <td class="text-success"><%= dtails[i].name %></td>
-          <td class="text-danger"><%= dtails[i].detail %></td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
-
     </div>
   </div>
 </div>

@@ -6,27 +6,34 @@
  */
 
 const log = require("../../services/log").log;
-const saveLogInFile = process.env.SAVE_ERROR_LOG_IN_FILE;
+var useragent = require('useragent');
+useragent(true);
 module.exports = {
   add: async function(req, res) {
+    var agent = useragent.parse(req.headers['user-agent']);
+    agent.toString();
+    let msg = req.baseUrl + req.originalUrl+" Method :"+req.method+" user-agent :"+agent;
     try {
       let user = {
         name: req.body.name
       };
       let users = await User.create(user).fetch();
       if (!users) {
-        log("info", err);
+        log("info", err, msg);
         return res.status(404).send("notfound");
       } else {
         return res.status.send(users);
       }
     } catch (err) {
-      log("error", err);
+      log("error", err,msg);
       return res.status(404).send(err);
     }
   },
 
   showenv: async function(req, res) {
+    var agent = useragent.parse(req.headers['user-agent']);
+    agent.toString();
+    let msg = req.baseUrl + req.originalUrl+" Method :"+req.method+" user-agent :"+agent;
     try {
       let envvar = await EnvVar.find();
       sails.log("env var", envvar[0].SAVE_ERROR_LOG_IN_DB);
@@ -34,12 +41,15 @@ module.exports = {
       sails.log("process env var", process.env.SAVE_ERROR_LOG_IN_DB);
       res.send(process.env.SAVE_ERROR_LOG_IN_DB);
     } catch (e) {
-      log("warn", e, short);
+      log("warn", e, short,msg);
       // logger.log("info", "message::", err, {});
       return res.json(e);
     }
   },
   switchDb: async function(req, res) {
+    var agent = useragent.parse(req.headers['user-agent']);
+    agent.toString();
+    let msg = req.baseUrl + req.originalUrl+" Method :"+req.method+" user-agent :"+agent;
     try {
       let envvar = await EnvVar.find();
       // sails.log("env var", envvar[0].SAVE_ERROR_LOG_IN_DB);
@@ -49,12 +59,15 @@ module.exports = {
         .fetch();
       res.send(updateDb);
     } catch (e) {
-      log("warn", e);
+      log("warn", e, msg);
       // logger.log("info", "message::", err, {});
       return res.json(e);
     }
   },
   switchFile: async function(req, res) {
+    var agent = useragent.parse(req.headers['user-agent']);
+    agent.toString();
+    let msg = req.baseUrl + req.originalUrl+" Method : "+req.method+" user-agent :"+agent;
     try {
       let envvar = await EnvVar.find();
       sails.log("before:: ", process.env.SAVE_ERROR_LOG_IN_FILE);
@@ -66,7 +79,7 @@ module.exports = {
       res.send(updateFile);
       sails.log("after:: ", process.env.SAVE_ERROR_LOG_IN_FILE);
     } catch (e) {
-      log("warn", e);
+      log("warn", e, msg);
       // logger.log("info", "message::", err, {});
       return res.json(e);
     }
